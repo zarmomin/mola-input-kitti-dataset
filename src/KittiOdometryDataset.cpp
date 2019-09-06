@@ -85,11 +85,11 @@ void KittiOdometryDataset::initialize(const std::string& cfg_block)
     // Mandatory parameters:
     auto c = YAML::Load(cfg_block);
 
-    ENSURE_YAML_ENTRY_EXISTS(c, "params");
+    ensureYamlEntryExists(c, "params");
     auto cfg = c["params"];
 
-    YAML_LOAD_MEMBER_REQ(base_dir, std::string);
-    YAML_LOAD_MEMBER_REQ(sequence, std::string);
+    yamlLoadMemberReq<std::string>(cfg, "base_dir", base_dir);
+    yamlLoadMemberReq<std::string>(cfg, "sequence", sequence);
 
     seq_dir_ = base_dir_ + "/sequences/" + sequence_;
     ASSERT_DIRECTORY_EXISTS_(seq_dir_);
@@ -155,11 +155,11 @@ void KittiOdometryDataset::initialize(const std::string& cfg_block)
 
     // Load projection matrices:
     auto calib = YAML::LoadFile(fil_calib);
-    ENSURE_YAML_ENTRY_EXISTS(calib, "P0");
-    ENSURE_YAML_ENTRY_EXISTS(calib, "P1");
-    ENSURE_YAML_ENTRY_EXISTS(calib, "P2");
-    ENSURE_YAML_ENTRY_EXISTS(calib, "P3");
-    ENSURE_YAML_ENTRY_EXISTS(calib, "Tr");
+    ensureYamlEntryExists(calib, "P0");
+    ensureYamlEntryExists(calib, "P1");
+    ensureYamlEntryExists(calib, "P2");
+    ensureYamlEntryExists(calib, "P3");
+    ensureYamlEntryExists(calib, "Tr");
 
     Eigen::Matrix<double, 3, 4> P[4], Tr;
     parse_calib_line(calib["Tr"].as<std::string>(), Tr);
