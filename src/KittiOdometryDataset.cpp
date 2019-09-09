@@ -88,8 +88,8 @@ void KittiOdometryDataset::initialize(const std::string& cfg_block)
     ensureYamlEntryExists(c, "params");
     auto cfg = c["params"];
 
-    yamlLoadMemberReq<std::string>(cfg, "base_dir", &base_dir);
-    yamlLoadMemberReq<std::string>(cfg, "sequence", &sequence);
+    yamlLoadMemberReq<std::string>(cfg, "base_dir", &base_dir_);
+    yamlLoadMemberReq<std::string>(cfg, "sequence", &sequence_);
 
     seq_dir_ = base_dir_ + "/sequences/" + sequence_;
     ASSERT_DIRECTORY_EXISTS_(seq_dir_);
